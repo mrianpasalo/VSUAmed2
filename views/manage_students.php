@@ -28,8 +28,17 @@
 
 
             <!----------------------------Edit Here------------------------------------>
+              
+            <?php
+              if ($_GET['page'] == "SearchStudent"):
 
-            
+                echo "hello bitch add";
+
+              else:
+
+                echo "hello teh";
+              endif;
+            ?>
 
             <!--------------------------End Edit Here---------------------------------->
       

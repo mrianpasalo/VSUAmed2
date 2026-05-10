@@ -44,6 +44,32 @@
                 </a>
               </li>
 
+              <li class="nav-item submenu">
+                <a data-bs-toggle="collapse" href="#base" class="collapsed" aria-expanded="false">
+                  <i class="fas fa-layer-group"></i>
+                  <p>Students</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="base" style="">
+                  <ul class="nav nav-collapse">
+
+                    <li>
+                      <a href="manage_students.php?page=AddStudent">
+                        <span class="sub-item">Add Students</span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="manage_students.php?page=SearchStudent">
+                        <span class="sub-item">Search Students</span>
+                      </a>
+                    </li>
+
+
+
+                  </ul>
+                </div>
+              </li>
 
               <!-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#submenu">
