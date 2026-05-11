@@ -48,7 +48,7 @@
                         </div>
                       </div>
                       <div class="card-body p-5">
-                        pppp
+                        after search the admin can click the students info then they will be redirected to the medical record page and there click the modal for checking the students record
                       </div>
                     </div>
                   </div>
@@ -60,7 +60,7 @@
                   <div class="col-md-6">
                     <div class="card">
 
-                      <form>
+                      <form action="../pages/student.php" method="POST" id="addStudent">
                         <div class="card-header">
                           <div class="card-title">ADD STUDENT</div>
                         </div>
@@ -174,7 +174,7 @@
                         </div>
 
                         <div class="card-footer p-3">
-                          <input type="submit" class="btn btn-success ">
+                          <input type="submit" name="addStudent" class="btn btn-success ">
                         </div>
                       </form>
 
