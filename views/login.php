@@ -68,7 +68,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <input type="submit" name="login" class="btn btn-primary btn-user btn-block" placeholder="">
+                                        <input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="LOGIN">
                                         <hr>
                                         <a class="btn btn-google btn-user btn-block">
                                             <!-- <i class="fa fa-google fa-fw"></i> --> Login with Google

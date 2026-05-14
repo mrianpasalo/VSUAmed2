@@ -36,11 +36,16 @@
                       <div class="card-body">
                         <div class="form-group">
                           <div class="input-icon">
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="Search Student..."
-                            />
+                            <form action="../pages/student.php" method="POST">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Search Student..."
+                                name="search"
+                                autofocus
+                              />
+                              <input type="submit" name="searchStud" hidden>
+                            </form>
                             <span class="input-icon-addon">
                               <i class="fa fa-search"></i>
                             </span>
@@ -48,7 +53,39 @@
                         </div>
                       </div>
                       <div class="card-body p-5">
-                        after search the admin can click the students info then they will be redirected to the medical record page and there click the modal for checking the students record
+                        <table class="table table-borderless <?= !empty($_SESSION['search_res']) ? 'mb-5' : 'd-none' ?>">
+                          <thead class="text-center">
+                            <tr>
+                                <th>No.</th>
+                                <th>Student Number</th>
+                                <th>Name</th>
+                                <th>Year & Program</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                              $n = 1;
+                              if(isset($_SESSION['search_res'])){
+                                foreach($_SESSION['search_res'] as $res){
+                            ?>
+                              <tr onclick="window.location='view.php?id=2'" style="cursor:pointer;">
+                                  <td><?= $n++ . ". )" ?></td>
+                                  <td><?= $res['student_number'] ?></td>
+                                  <td><?= ucwords($res['last_name'] . ", " . $res['first_name'] . " " . $res['middle_name']) ?></td>
+                                  <td><?= ucwords($res['year_level_name'] . " Year - ") . strtoupper($res['program_name']) ?></td>
+                              </tr>
+                            <?php }} unset($_SESSION['search_res']); ?>
+                          </tbody>
+                        </table>
+                        <?php
+                          if(isset($_SESSION['search_error'])){
+                              echo "<h2 class='text-center mb-5' style=\"font-family: 'Roboto', sans-serif;\">Nothing Found.</h2>";
+                              unset($_SESSION['search_error']);
+                          }
+                        ?>
+                        <p class="text-center" style="font-family: 'Roboto', sans-serif;">Enter a name or student number to begin searching records.</p>
+                        <p class="text-center text-danger" style="font-family: 'Roboto', sans-serif;">* Note: Only enrolled students can be searched in the system.”</p>
+                        <p class="text-center" style="font-family: 'Roboto', sans-serif;">“Search. Find. Care.”</p>
                       </div>
                     </div>
                   </div>

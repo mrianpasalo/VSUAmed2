@@ -18,7 +18,7 @@
       href="../assets/img/kaiadmin/favicon.ico"
       type="image/x-icon"
     />
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Fonts and icons -->
     <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
