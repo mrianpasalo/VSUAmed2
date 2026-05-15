@@ -68,7 +68,7 @@
                               if(isset($_SESSION['search_res'])){
                                 foreach($_SESSION['search_res'] as $res){
                             ?>
-                              <tr onclick="window.location='../pages/student.php?program=<?= $res['program_id'] ?>&&yr=<?= $res['year_level_id'] ?>&&student=<?= $res['student_id'] ?>'" style="cursor:pointer;">
+                              <tr onclick="window.location='medicalrecord.php?program=<?= $res['program_id'] ?>&&yr=<?= $res['year_level_id'] ?>&&student=<?= $res['student_id'] ?>'" style="cursor:pointer;">
                                   <td><?= $n++ . ". )" ?></td>
                                   <td><?= $res['student_number'] ?></td>
                                   <td><?= ucwords($res['last_name'] . ", " . $res['first_name'] . " " . $res['middle_name']) ?></td>

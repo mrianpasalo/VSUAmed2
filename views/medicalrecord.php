@@ -36,36 +36,38 @@
                     <div class="card-header">
                       <?php
                         if(isset($_GET['program']) && isset($_GET['yr'])):
-                      ?>
-                      
-                      <div class="table-responsive">
+                          include '../pages/getStudents.php'
+                        ?>
+                    
                         <table
                           id="basic-datatables"
                           class="display table table-striped table-hover"
-                        >
+                          >
                           <thead>
                             <tr>
-                              <th>#</th>
-                              <th>Student #</th>
-                              <th>Last Name</th>
-                              <th>First Name</th>
-                              <th>Middle  Name</th>
-                              <th>Actions</th>
+                              <th>Section</th>
+                              <th>Name</th>
                             </tr>
                           </thead>
 
-                          <tbody>
-                            <tr onclick="window.location='medicalrecord.php?program=<?//= $res['program_id'] ?>&&yr=<?//= $res['year_level_id'] ?>&&student='" style="cursor:pointer;">
-                              <td>1.)</td>
-                              <td>System Architect</td>
-                              <td>Edinburgh</td>
-                              <td>61</td>
-                              <td>2011/04/25</td>
-                              <td>$320,800</td>
-                            </tr>
-                          </tbody>
+                          <?php
+                            $pr = $_GET['program'];
+                            $yr = $_GET['yr'];
+                            $students = getStudentsByYearProgram($pr, $yr);
+                            if(!empty($students)):
+                              foreach($students as $stud):
+                            ?>
+                            <tbody>
+                              <tr onclick="window.location='?program=<?= $pr ?>&&yr=<?= $yr ?>&&student=<?= $stud['student_id'] ?>'" style="cursor:pointer;">
+                                <td><?= strtoupper($stud['section_name']) ?></td>
+                                <td><?= ucwords($stud['last_name'] . ", " . $stud['first_name'] . " " . $stud['middle_name']) ?></td>
+                              </tr>
+                            </tbody>
+                          <?php endforeach; endif; ?>
+
                         </table>
-                      </div>
+
+
                       <?php else: ?>
                       <?php endif; ?>
                       page will show programs, sections & year

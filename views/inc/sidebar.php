@@ -26,7 +26,7 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
           <div class="sidebar-content">
-            <ul class="nav nav-secondary">
+            <ul class="nav nav-secondary" id="mainSidebarAccordion">
 
               <!---------------------- Sidebar ----------------------->
               
@@ -43,28 +43,35 @@
                   <p>Medical Records</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse" id="medRec">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a data-bs-toggle="collapse" href="#programs">
-                        <span class="sub-item">Programs</span>
-                        <span class="caret"></span>
-                      </a>
-                      <div class="collapse" id="programs">
-                        <ul class="nav nav-collapse subnav">
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">1st Year</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <span class="sub-item">2nd Year</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
+                <div class="collapse" id="medRec" data-bs-parent="#mainSidebarAccordion">
+                  <ul class="nav nav-collapse"  id="programAccordion">
+                    <?php
+                      include '../model/sidebarFunction.php';
+                      $programs = getPrograms();
+                      if($programs):
+                      foreach($programs as $prog):
+                      ?>
+                      <li>
+                        <a data-bs-toggle="collapse" href="#programs<?= $prog['program_id'] ?>">
+                          <span class="sub-item"><?= strtoupper($prog['program_code']) ?></span>
+                          <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="programs<?= $prog['program_id'] ?>" data-bs-parent="#programAccordion">
+                          <ul class="nav nav-collapse subnav">
+                            <?php
+                              $years = getYear();
+                              foreach ($years as $yr):
+                              ?>
+                              <li>
+                                <a href="medicalrecord.php?program=<?= $prog['program_id'] ?>&&yr=<?= $yr['year_level_id'] ?>">
+                                  <span class="sub-item"><?= $yr['year_level_name'] . " Year" ?></span>
+                                </a>
+                              </li>
+                            <?php endforeach; ?>
+                          </ul>
+                        </div>
+                      </li>
+                    <?php endforeach; endif; ?>
                     <li>
                       <a href="medicalrecord.php?page=addProgram">
                         <span class="sub-item">Add Program</span>
@@ -80,7 +87,7 @@
                   <p>Students</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse" id="Students">
+                <div class="collapse" id="Students" data-bs-parent="#mainSidebarAccordion">
                   <ul class="nav nav-collapse">
 
                     <li>
@@ -100,6 +107,7 @@
                   </ul>
                 </div>
               </li>
+
               <!-- <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#submenu">
                   <i class="fas fa-bars"></i>
