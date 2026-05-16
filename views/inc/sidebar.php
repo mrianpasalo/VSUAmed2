@@ -2,13 +2,14 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-              <img
+            <a href="https://www.instagram.com/_shrwin.dv" class="logo">
+              <!-- <img
                 src="../assets/img/kaiadmin/logo_light.svg"
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20"
-              />
+              /> -->
+              <p class="text-white text-center h4" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">CLINIC RECORDS</p>
             </a>
             <div class="nav-toggle">
               <button class="btn btn-toggle toggle-sidebar">
