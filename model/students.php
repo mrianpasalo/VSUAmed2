@@ -63,9 +63,11 @@
                     s.student_number LIKE ?
                     OR s.first_name LIKE ?
                     OR s.last_name LIKE ?
-                    OR s.middle_name LIKE ?";
+                    OR s.middle_name LIKE ?
+                    OR CONCAT(s.first_name, ' ', s.last_name) LIKE ?
+                    OR CONCAT(s.first_name, ' ', s.middle_name, ' ', s.last_name) LIKE ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $search, $search, $search, $search);
+        $stmt->bind_param("ssssss", $search, $search, $search, $search, $search, $search);
         $stmt->execute();
         $result = $stmt->get_result();
         $students = [];
