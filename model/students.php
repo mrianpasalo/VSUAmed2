@@ -1,56 +1,64 @@
 <?php
     require_once 'connector.php';
-
-    function addStdnt($conn, $post){
-        $stdnt_num = $post['num'];
-        $sex = $post['sex'];
-        $lname = $post['lname'];
-        $fname = $post['fname'];
-        $mname = $post['mname'];
-        $bday = $post['bday'];
-        $email = $post['email'];
-        $contact = $post['cont'];
-
-        $sqlCheck = "SELECT * FROM students WHERE student_number = ?";
-        $stmtCheck = $conn->prepare($sqlCheck);
-        $stmtCheck->bind_param("s", $stdnt_num);
-        $stmtCheck->execute();
-
-        $result = $stmtCheck->get_result();
-
-        if ($result->num_rows > 0) {
-            echo "
-                <script>
-                    alert('Student number already exists.')
-                    window.location.href = '../views/manage_students.php?page=AddStudent'
-                </script>
-            ";
-        } else {
-
-            $sql = "INSERT INTO students
-            (student_number, first_name, last_name, middle_name, birth_date, sex, contact_number, stud_email)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-            $stmt = $conn->prepare($sql);
-
-            $stmt->bind_param(
-                "ssssssss",
-                $stdnt_num,
-                $fname,
-                $lname,
-                $mname,
-                $bday,
-                $sex,
-                $contact,
-                $email
-            );
-
-            $stmt->execute();
-            $student_id = $conn->insert_id;
-            return $student_id;
-        }
+ 
+function updateStudent($data) {
+    global $conn;
+ 
+    $stmt = $conn->prepare("UPDATE students SET last_name=?, first_name=?, middle_name=?, sex=?, birth_date=?, contact_number=?, stud_email=? WHERE student_id=?");
+    $stmt->execute([
+        $data['lname'],
+        $data['fname'],
+        $data['mname'],
+        $data['sex'],
+        $data['bday'],
+        $data['cont'],
+        $data['email'],
+        $data['student_id']
+    ]);
+ 
+    $stmt2 = $conn->prepare("UPDATE student_enrollment SET year_level_id=?, program_id=?, section_id=? WHERE student_id=?");
+    return $stmt2->execute([
+        $data['year'],
+        $data['prog'],
+        $data['sec'],
+        $data['student_id']
+    ]);
+}
+function addStdnt($conn, $post){
+ 
+    $sqlCheck = "SELECT student_id FROM students WHERE student_number = ?";
+    $stmtCheck = $conn->prepare($sqlCheck);
+    $stmtCheck->bind_param("s", $post['num']);
+    $stmtCheck->execute();
+ 
+    $result = $stmtCheck->get_result();
+ 
+    if ($result->num_rows > 0) {
+        return "exists";
     }
-
+ 
+    $sql = "INSERT INTO students
+    (student_number, first_name, last_name, middle_name, birth_date, sex, contact_number, stud_email)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+ 
+    $stmt = $conn->prepare($sql);
+ 
+    $stmt->bind_param(
+        "ssssssss",
+        $post['num'],
+        $post['fname'],
+        $post['lname'],
+        $post['mname'],
+        $post['bday'],
+        $post['sex'],
+        $post['cont'],
+        $post['email']
+    );
+ 
+    return $stmt->execute() ? $conn->insert_id : false;
+}
+ 
+ 
     function search($conn, $post){
         $search = "%" . $post['search'] . "%";
         $sql = "SELECT *
@@ -99,10 +107,10 @@
         }
         return $students;
     }
-
+ 
     function getRecentVisits($id){
         global $conn;
-
+ 
         $sql = "SELECT *
                 FROM visits AS v
                 INNER JOIN prescription AS p ON p.visit_id = v.visit_id
@@ -119,7 +127,7 @@
         }
         return $records;
     }
-
+ 
     function getStudentById($id){
         global $conn;
         $sql = "SELECT *
@@ -130,15 +138,34 @@
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
     }
+    function deleteStudent($id) {
+    global $conn;
 
+    $stmt = $conn->prepare("DELETE p FROM prescription p INNER JOIN visits v ON v.visit_id = p.visit_id WHERE v.student_id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $stmt2 = $conn->prepare("DELETE FROM visits WHERE student_id=?");
+    $stmt2->bind_param("i", $id);
+    $stmt2->execute();
+
+    $stmt3 = $conn->prepare("DELETE FROM student_enrollment WHERE student_id=?");
+    $stmt3->bind_param("i", $id);
+    $stmt3->execute();
+
+    $stmt4 = $conn->prepare("DELETE FROM students WHERE student_id=?");
+    $stmt4->bind_param("i", $id);
+    return $stmt4->execute();
+}
+ 
     function enrollStud($id, $post){
         global $conn;
         $sql = "INSERT INTO student_enrollment
         (student_id, year_level_id, program_id, section_id, status, enrollment_date)
         VALUES (?, ?, ?, ?, ?, NOW())";
-
+ 
         $stmt = $conn->prepare($sql);
-
+ 
         $stmt->bind_param(
             "sssss",
             $id,
@@ -147,37 +174,37 @@
             $post['sec'],
             $post['status']
         );
-
+ 
         $stmt->execute();
         return $stmt;
-
+ 
     }
-
+ 
     function getStudentByNumber($num){
         global $conn;
-
+ 
         $sql = "SELECT student_id
                 FROM students
                 WHERE student_number = ?";
-
+ 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $num['stud_number']);
         $stmt->execute();
-
+ 
         $result = $stmt->get_result()->fetch_assoc();
-
+ 
         if ($result) {
             return $result['student_id'];
         }
-
+ 
         return null;
     }
-
+ 
     function addVisitInfo($id, $post){
         global $conn;
         $sql = "INSERT INTO visits (student_id, staff_id, complaint, diagnosis, notes, created_at)
                     VALUES (?, ?, ?, ?, ?, NOW())";
-
+ 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
             "iisss",
@@ -188,15 +215,15 @@
             $post['note']
         );
         if ($stmt->execute()) {
-            return $conn->insert_id; //
+            return $conn->insert_id;
         }
     }
-
+ 
     function addPrescriptInfo($id, $post){
         global $conn;
         $sql = "INSERT INTO prescription (visit_id, medicine_name, dosage, duration, instructions)
                     VALUES (?, ?, ?, ?, ?)";
-
+ 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
             "issss",
@@ -213,3 +240,4 @@
         }
     }
 ?>
+ 

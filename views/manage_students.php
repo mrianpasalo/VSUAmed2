@@ -1,4 +1,10 @@
-    <?php include 'inc/header.php' ?>
+<?php 
+include 'inc/header.php';
+
+$msg = $_SESSION['msg'] ?? null;
+$isSuccess = $msg && $msg['type'] === 'success';
+unset($_SESSION['msg']);
+?>
     <!-------------------------------------------------------------------------------------------------->
 
     <div class="wrapper">
@@ -18,6 +24,13 @@
           <!-- End Navbar -->
         
         </div>
+        <?php if ($msg): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    new bootstrap.Modal(document.getElementById('messageModal')).show();
+});
+</script>
+<?php endif; ?>
 
         <!---------------------------------Content------------------------------------->
 
@@ -26,7 +39,52 @@
 
 
             <!----------------------------Edit Here------------------------------------>
-              
+        <div class="modal fade" id="messageModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
+
+      <div class="modal-header px-4 pt-4 pb-3">
+
+        <div class="rounded-circle d-flex justify-content-center align-items-center"
+          style="width:40px;height:40px;background:<?= $isSuccess ? '#d1fae5' : '#fee2e2' ?>;">
+
+          <?php if ($isSuccess): ?>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          <?php else: ?>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2">
+              <path d="M12 9v4m0 4h.01M12 3a9 9 0 100 18A9 9 0 0012 3z"/>
+            </svg>
+          <?php endif; ?>
+
+        </div>
+
+        <div class="ms-3">
+          <h6 class="mb-0 fw-semibold">
+            <?= $isSuccess ? 'Success' : 'Error' ?>
+          </h6>
+          <small class="text-muted">
+            <?= $isSuccess ? 'Operation completed.' : 'Please check details.' ?>
+          </small>
+        </div>
+
+        <button class="btn-close ms-auto" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body px-4 py-3">
+        <?= $msg['text'] ?? '' ?>
+      </div>
+
+      <div class="modal-footer border-0 px-4 pb-4">
+        <button class="btn btn-sm <?= $isSuccess ? 'btn-success' : 'btn-danger' ?>" data-bs-dismiss="modal">
+          OK
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>      
             <?php
               if (isset($_GET['pages']) == "SearchStudent"): ?>
 
@@ -85,8 +143,8 @@
                           }
                         ?>
                         <p class="text-center" style="font-family: 'Roboto', sans-serif;">Enter a name or student number to begin searching records.</p>
-                        <p class="text-center text-danger" style="font-family: 'Roboto', sans-serif;">* Note: Only enrolled students can be searched in the system.”</p>
-                        <p class="text-center" style="font-family: 'Roboto', sans-serif;">“Search. Find. Care.”</p>
+                        <p class="text-center text-danger" style="font-family: 'Roboto', sans-serif;">* Note: Only enrolled students can be searched in the system."</p>
+                        <p class="text-center" style="font-family: 'Roboto', sans-serif;">"Search. Find. Care."</p>
                       </div>
                     </div>
                   </div>
