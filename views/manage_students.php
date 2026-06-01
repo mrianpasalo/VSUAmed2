@@ -170,27 +170,30 @@ document.addEventListener('DOMContentLoaded', function () {
                           <div class="col-md-6">
                             <div class="row">
 
-                              <div class="col-md-8">
+                            <!-- Student Number -->
+                              <div class="col-md-7">
                                 <div class="form-group">
                                   <label for="sn">Student Number: </label>
                                   <input
                                     id="sn"
                                     class="form-control"
                                     name="num"
-                                    placeholder="2024-01"
+                                    placeholder="00-0-00000"
                                     required
                                   />
                                 </div>
                               </div>
 
-                              <div class="col-md-4">
+                            <!-- FIXED: Sex Dropdown -->
+                              <div class="col-md-5">
                                 <div class="form-group">
-                                  <label for="defaultSelect">Sex: </label>
+                                  <label for="sex">Sex: </label>
                                   <select
-                                    class="form-select form-control"
+                                    class="form-select form-control w-100"
                                     id="sex"
                                     name="sex"
-                                    >
+                                    style="min-width: 140px;"
+                                  >
                                     <option value="" disabled selected>Select Sex</option>
                                     <option value="Female">FEMALE</option>
                                     <option value="Male">MALE</option>
@@ -209,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     id="lname"
                                     name="lname"
                                     class="form-control"
-                                    placeholder="Cruz"
+                                    placeholder="Last name"
                                     required
                                   />
                                 </div>
@@ -222,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     id="fname"
                                     name="fname"
                                     class="form-control"
-                                    placeholder="John Doe"
+                                    placeholder="First name"
                                     required
                                   />
                                 </div>
@@ -239,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     id="mname"
                                     name="mname"
                                     class="form-control"
-                                    placeholder="Mendoza"
+                                    placeholder="Middle name"
                                   />
                                 </div>
                               </div>
@@ -247,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               
                               <div class="col-md-5">
                                 <div class="form-group">
-                                  <label for="lname">Birthday: </label>
+                                  <label for="bday">Birthday: </label>
                                   <input
                                     id="bday"
                                     name="bday"
@@ -260,19 +263,19 @@ document.addEventListener('DOMContentLoaded', function () {
                               
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label for="lname">Email: </label>
+                                  <label for="email">Email: </label>
                                   <input
                                     id="email"
                                     name="email"
                                     class="form-control"
-                                    placeholder="johndoe@gmail.com"
+                                    placeholder="email@gmail.com"
                                     required
                                   />
                                 </div>
                               </div>
                               
                               <div class="form-group col-md-6">
-                                <label for="lname">Contact Number: </label>
+                                <label for="contact">Contact Number: </label>
                                 <input
                                   id="contact"
                                   name="cont"
@@ -292,12 +295,13 @@ document.addEventListener('DOMContentLoaded', function () {
                               $sections = getsection();
                               ?>
                             <div class="form-group">
-                              <label for="defaultSelect">Year Level: </label>
+                              <label for="year">Year Level: </label>
                               <select
-                                class="form-select form-control text-center"
+                                class="form-select form-control text-center w-100"
                                 id="year"
                                 name="year"
                                 required
+                                style="min-width: 160px;"
                                 >
                                 <option value="" disabled selected>Select Year Level</option>
                                 <?php
@@ -311,12 +315,13 @@ document.addEventListener('DOMContentLoaded', function () {
                               </select>
                             </div>
                             <div class="form-group">
-                              <label for="defaultSelect">Program: </label>
+                              <label for="prog">Program: </label>
                               <select
-                                class="form-select form-control text-center"
+                                class="form-select form-control text-center w-100"
                                 id="prog"
                                 name="prog"
                                 required
+                                style="min-width: 160px;"
                                 >
                                   <option value="" disabled selected>Select Program</option>
                                 <?php
@@ -329,14 +334,17 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <?php endif; ?>
                               </select>
                             </div>
+
+                            <!-- FIXED: Section Dropdown -->
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="defaultSelect">Section: </label>
+                                <label for="sec">Section: </label>
                                 <select
-                                  class="form-select form-control text-center"
+                                  class="form-select form-control text-center w-100"
                                   id="sec"
                                   name="sec"
                                   required
+                                  style="min-width: 130px;"
                                   >
                                   <option value="" disabled selected>Select Section</option>
                                   <?php
@@ -350,21 +358,25 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </select>
                               </div>
                             </div>
+
+                            <!-- FIXED: Status Dropdown -->
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="defaultSelect">Status: </label>
+                                <label for="status">Status: </label>
                                 <select
-                                  class="form-select form-control text-center"
+                                  class="form-select form-control text-center w-100"
                                   id="status"
                                   name="status"
                                   required
+                                  style="min-width: 130px;"
                                   >
                                   <option value="" disabled selected>Select Status</option>
-                                  <option value="Active">Regular</option>
-                                  <option value="Irregular">Irregular</option>
+                                  <option value="Active">REGULAR</option>
+                                  <option value="Irregular">IRREGULAR</option>
                                 </select>
                               </div>
                             </div>
+
                           </div>
                         </div>
 
