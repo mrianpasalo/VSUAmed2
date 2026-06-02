@@ -1,5 +1,5 @@
           <nav
-            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="background-color: #17a2b8;">
+            class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="background-color: #008080;">
             <div class="container-fluid">
               <nav
                 class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
@@ -54,7 +54,7 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <i class="fa fa-envelope"></i>
+                    
                   </a>
                   <ul
                     class="dropdown-menu messages-notif-box animated fadeIn"
@@ -145,8 +145,8 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <i class="fa fa-bell"></i>
-                    <span class="notification">4</span>
+                  
+                   
                   </a>
                   <ul
                     class="dropdown-menu notif-box animated fadeIn"
@@ -220,7 +220,7 @@
                     href="#"
                     aria-expanded="false"
                   >
-                    <i class="fas fa-layer-group"></i>
+                   
                   </a>
                   <div class="dropdown-menu quick-actions animated fadeIn">
                     <div class="quick-actions-header">
@@ -301,14 +301,14 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="../assets/img/profile.jpg"
+                        src="../assets/img/profileyellow.png"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
                     <span class="profile-username">
-                      <span class="op-7">Hi,</span>
-                      <span class="fw-bold"><?=  !empty($_SESSION['name']) ? $_SESSION['name'] : '' ; ?></span>
+                      <span style="color: #ffffff;" class="op-7">Hi,</span>
+                      <span style="color: #ffffff;" class="fw-bold"><?=  !empty($_SESSION['name']) ? $_SESSION['name'] : '' ; ?></span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">

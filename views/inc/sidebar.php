@@ -1,10 +1,10 @@
-<div class="sidebar" style="background-color: #000230">
+<div class="sidebar" style="background-color: #008080">
     <div class="sidebar-logo">
       <!-- Logo Header -->
       <?php
         $page = basename($_SERVER['PHP_SELF']);
       ?>
-      <div class="logo-header" style="background-color: #17a2b8">
+      <div class="logo-header" style="background-color: #008080">
         <a href="#" class="logo">
           <p class="text-white text-center h4" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:#ffffff !important;">CLINIC RECORDS</p>
         </a>
