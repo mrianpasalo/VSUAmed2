@@ -1,8 +1,10 @@
+
 <link rel="stylesheet" href="../assets/css/sidebar.css" />
-   
 
 </head>
 <link rel="stylesheet" href="../assets/css/sidebar.css" />
+
+
 <div class="sidebar" style="background-color: #008080">
     <div class="sidebar-logo">
       <?php $page = basename($_SERVER['PHP_SELF']); ?>
