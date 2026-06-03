@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2026 at 04:02 AM
+-- Generation Time: Jun 03, 2026 at 04:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `clinic_records`
 --
-CREATE DATABASE IF NOT EXISTS `clinic_records` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `clinic_records`;
 
 -- --------------------------------------------------------
 
@@ -58,6 +56,13 @@ CREATE TABLE `prescription` (
   `instructions` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `prescription`
+--
+
+INSERT INTO `prescription` (`prescription_id`, `visit_id`, `medicine_name`, `dosage`, `duration`, `instructions`) VALUES
+(3, 3, 'Acceptance', '2000mg', '8 years', 'acceptance is tjhe key');
+
 -- --------------------------------------------------------
 
 --
@@ -80,7 +85,9 @@ INSERT INTO `program` (`program_id`, `program_code`, `program_name`) VALUES
 (3, 'BSA', 'Bachelor of Science in agriculture'),
 (4, 'BSED', 'Bachelor of secondary educatation'),
 (5, 'eme', 'Emaden'),
-(6, 'BB', 'Bachelor ni Baby');
+(6, 'BB', 'Bachelor ni Baby'),
+(7, 'BSY', 'BACHELOR IN SCIENCE IN YEARNING'),
+(8, 'BSMATH', 'BSCRIM');
 
 -- --------------------------------------------------------
 
@@ -122,6 +129,13 @@ CREATE TABLE `students` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`student_id`, `student_number`, `first_name`, `last_name`, `middle_name`, `birth_date`, `sex`, `contact_number`, `stud_email`, `created_at`) VALUES
+(22, 'A25-00087223', 'Billy Mhear', 'Cardines', 'Msda', '2026-05-31', NULL, '09928525846', 'kujotarooo.o@gmail.com', '2026-05-31 04:55:36');
+
 -- --------------------------------------------------------
 
 --
@@ -134,9 +148,16 @@ CREATE TABLE `student_enrollment` (
   `year_level_id` int(11) DEFAULT NULL,
   `program_id` int(11) DEFAULT NULL,
   `section_id` int(11) DEFAULT NULL,
-  `status` enum('Active','Dropped','Graduated','Irregular','Deceased') DEFAULT NULL,
+  `status` enum('Regular','Irregular') DEFAULT NULL,
   `enrollment_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_enrollment`
+--
+
+INSERT INTO `student_enrollment` (`enrollment_id`, `student_id`, `year_level_id`, `program_id`, `section_id`, `status`, `enrollment_date`) VALUES
+(10, 22, 1, 2, 3, 'Regular', '2026-05-31');
 
 -- --------------------------------------------------------
 
@@ -154,6 +175,13 @@ CREATE TABLE `visits` (
   `notes` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `visits`
+--
+
+INSERT INTO `visits` (`visit_id`, `student_id`, `staff_id`, `visit_date`, `complaint`, `diagnosis`, `notes`, `created_at`) VALUES
+(3, 22, 1, NULL, 'Selos', 'Yearning', 'hahays', '2026-05-31 06:36:55');
 
 -- --------------------------------------------------------
 
@@ -250,31 +278,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `prescription`
 --
 ALTER TABLE `prescription`
-  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `program`
 --
 ALTER TABLE `program`
-  MODIFY `program_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `program_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `student_enrollment`
 --
 ALTER TABLE `student_enrollment`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `visits`
 --
 ALTER TABLE `visits`
-  MODIFY `visit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `visit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `year_level`
