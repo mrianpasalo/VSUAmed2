@@ -31,7 +31,7 @@ if (isset($_SESSION['login_error'])) {
       display: flex;
       justify-content: center;
       align-items: center;
-      background: url('d.png') center/cover no-repeat;
+      background: url('../assets/img/d.png') center/cover no-repeat;
       overflow-x: hidden;
       padding: 20px;
       position: relative;
