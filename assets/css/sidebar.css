@@ -1,0 +1,7 @@
+  .sidebar .nav.nav-secondary > .nav-item a:hover i,
+  .sidebar .nav.nav-secondary > .nav-item a:focus i {
+    color: #fdfbd4 !important;
+  }
+   .icon-big.icon-primary   { background: #00BFFF !important; } 
+    .icon-big.icon-info      { background: #00AF91 !important; } 
+    .icon-big.icon-success   { background: #20B2AA !important; } 

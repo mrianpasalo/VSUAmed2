@@ -1,0 +1,250 @@
+ @media print {
+    body * { visibility: hidden !important; }
+    #print-area, #print-area * { visibility: visible !important; }
+    #print-area {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      background: #fff;
+    }
+  }
+ 
+  #print-area {
+    display: none;
+    font-family: 'Georgia', serif;
+    color: #1a1a1a;
+    background: #fff;
+  }
+ 
+  .print-doc {
+    width: 794px;
+    min-height: 1123px;
+    margin: 0 auto;
+    padding: 48px 56px 40px;
+    background: #fff;
+    box-sizing: border-box;
+    position: relative;
+  }
+ 
+  .print-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 3px solid #1a3a5c;
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+  }
+ 
+  .print-header img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+ 
+  .print-header-text {
+    flex: 1;
+    text-align: center;
+  }
+ 
+  .print-header-text .republic {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #555;
+    margin: 0;
+  }
+ 
+  .print-header-text .university {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin: 2px 0;
+    letter-spacing: 0.5px;
+  }
+ 
+  .print-header-text .campus {
+    font-size: 13px;
+    color: #2e6da4;
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+ 
+  .print-header-text .clinic {
+    font-size: 11px;
+    color: #555;
+    margin: 4px 0 0;
+    font-style: italic;
+  }
+ 
+  .print-sub-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: #444;
+    margin-bottom: 20px;
+    padding-top: 6px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+  }
+ 
+  .print-form-title {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #1a3a5c;
+    margin: 18px 0 20px;
+    border: 1px solid #1a3a5c;
+    padding: 7px 0;
+    border-left: none;
+    border-right: none;
+  }
+ 
+  .print-section {
+    margin-bottom: 18px;
+  }
+ 
+  .print-section-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #2e6da4;
+    font-weight: 700;
+    margin-bottom: 8px;
+    border-bottom: 0.5px solid #c0d4e8;
+    padding-bottom: 4px;
+  }
+ 
+  .print-row {
+    display: flex;
+    gap: 0;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+ 
+  .print-field {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+  }
+ 
+  .print-label {
+    font-size: 10.5px;
+    color: #555;
+    white-space: nowrap;
+    min-width: 100px;
+  }
+ 
+  .print-value {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1a1a1a;
+    border-bottom: 0.5px dotted #aaa;
+    flex: 1;
+    padding-bottom: 1px;
+    min-width: 0;
+  }
+ 
+  .print-value.full { flex: 1; }
+ 
+  .rx-box {
+    border: 1.5px solid #1a3a5c;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    position: relative;
+  }
+ 
+  .rx-symbol {
+    position: absolute;
+    top: -1px;
+    left: 14px;
+    background: #fff;
+    padding: 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a3a5c;
+    font-style: italic;
+  }
+ 
+  .rx-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+    margin-top: 6px;
+  }
+ 
+  .print-notes-box {
+    background: #f7f9fc;
+    border: 0.5px solid #c0d4e8;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+ 
+  .print-notes-box .notes-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #2e6da4;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+ 
+  .print-footer {
+    margin-top: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+ 
+  .print-sig-block {
+    text-align: center;
+    width: 200px;
+  }
+ 
+  .print-sig-line {
+    border-top: 1px solid #333;
+    margin-bottom: 4px;
+    width: 100%;
+  }
+ 
+  .print-sig-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+ 
+  .print-sig-role {
+    font-size: 10px;
+    color: #666;
+  }
+ 
+  .print-stamp-area {
+    width: 120px;
+    height: 80px;
+    border: 0.5px dashed #bbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+    font-size: 9.5px;
+    text-align: center;
+    border-radius: 2px;
+  }
+ 
+  .print-doc-footer {
+    margin-top: 28px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: #888;
+  }

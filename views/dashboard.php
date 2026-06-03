@@ -11,7 +11,7 @@
           
           <!-- LOGO -->
             <?php include 'inc/logo.php' ?>
-          <!-- End LOGO -->
+          <!-- End LOGO --> 
 
           <!-- Navbar Header -->
             <?php include 'inc/navbar.php' ?>

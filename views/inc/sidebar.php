@@ -1,15 +1,8 @@
-<style>
-    .icon-big.icon-primary   { background: #00BFFF !important; } 
-    .icon-big.icon-info      { background: #00AF91 !important; } 
-    .icon-big.icon-success   { background: #20B2AA !important; } 
-</style>
+<link rel="stylesheet" href="../assets/css/sidebar.css" />
+   
+
 </head>
-<style>
-  .sidebar .nav.nav-secondary > .nav-item a:hover i,
-  .sidebar .nav.nav-secondary > .nav-item a:focus i {
-    color: #fdfbd4 !important;
-  }
-</style>
+<link rel="stylesheet" href="../assets/css/sidebar.css" />
 <div class="sidebar" style="background-color: #008080">
     <div class="sidebar-logo">
       <?php $page = basename($_SERVER['PHP_SELF']); ?>
