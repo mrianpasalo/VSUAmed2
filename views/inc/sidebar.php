@@ -1,13 +1,13 @@
 <style>
-    .icon-big.icon-primary   { background: #00BFFF !important; } 
-    .icon-big.icon-info      { background: #00AF91 !important; } 
-    .icon-big.icon-success   { background: #20B2AA !important; } 
+    .icon-big.icon-primary   { background: #206bb2 !important; } 
+    .icon-big.icon-info      { background: #008caf !important; } 
+    .icon-big.icon-success   { background: #00AF91 !important; } 
 </style>
 </head>
 <style>
   .sidebar .nav.nav-secondary > .nav-item a:hover i,
   .sidebar .nav.nav-secondary > .nav-item a:focus i {
-    color: #fdfbd4 !important;
+    color: #fdfbd4!important;
   }
 </style>
 <div class="sidebar" style="background-color: #008080">
