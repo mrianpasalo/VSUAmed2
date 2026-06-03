@@ -1,22 +1,7 @@
           <nav
             class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" style="background-color: #008080;">
             <div class="container-fluid">
-              <nav
-                class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
-              >
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <button type="submit" class="btn btn-search pe-1">
-                      <i class="fa fa-search search-icon"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search ..."
-                    class="form-control"
-                  />
-                </div>
-              </nav>
+              
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                 <li
@@ -301,7 +286,7 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="../assets/img/profileyellow.png"
+                        src="../assets/img/profile.png"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
@@ -317,7 +302,7 @@
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="../assets/img/profile.jpg"
+                              src="../assets/img/profile.png"
                               alt="image profile"
                               class="avatar-img rounded"
                             />

@@ -1,3 +1,15 @@
+<style>
+    .icon-big.icon-primary   { background: #00BFFF !important; } /* Teal */
+    .icon-big.icon-info      { background: #00AF91 !important; } /* Navy */
+    .icon-big.icon-success   { background: #20B2AA !important; } /* Green */
+</style>
+</head>
+<style>
+  .sidebar .nav.nav-secondary > .nav-item a:hover i,
+  .sidebar .nav.nav-secondary > .nav-item a:focus i {
+    color: #e9dca5 !important;
+  }
+</style>
 <div class="sidebar" style="background-color: #008080">
     <div class="sidebar-logo">
       <?php $page = basename($_SERVER['PHP_SELF']); ?>
