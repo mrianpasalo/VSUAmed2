@@ -2,6 +2,16 @@
   .sidebar .nav.nav-secondary > .nav-item a:focus i {
     color: #fdfbd4 !important;
   }
+  .sidebar .nav.nav-secondary > .nav-item a:hover,
+  .sidebar .nav.nav-secondary > .nav-item a:focus,
+  .sidebar .nav.nav-secondary > .nav-item a:hover p,
+  .sidebar .nav.nav-secondary > .nav-item a:focus p,
+  .sidebar .nav.nav-secondary > .nav-item a:hover span,
+  .sidebar .nav.nav-secondary > .nav-item a:focus span {
+    color: #ffffff !important;
+  }
    .icon-big.icon-primary   { background: #00BFFF !important; } 
     .icon-big.icon-info      { background: #00AF91 !important; } 
     .icon-big.icon-success   { background: #20B2AA !important; } 
+    
+  
