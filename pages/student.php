@@ -3,7 +3,6 @@ require_once '../model/students.php';
 require_once '../model/connector.php';
 session_start();
 
-// Handle DELETE via GET
 if (isset($_GET['deleteStudent'])) {
     $id      = (int) $_GET['deleteStudent'];
     $program = $_GET['program'] ?? '';
@@ -27,10 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         $result = addStdnt($conn, $_POST);
 
         if ($result === "exists") {
-            $_SESSION['msg'] = [
-                'type' => 'error',
-                'text' => 'Student already exists.'
-            ];
+            $_SESSION['msg'] = ['type' => 'error', 'text' => 'Student already exists.'];
         } elseif ($result) {
             $enroll = enrollStud($result, $_POST);
             $_SESSION['msg'] = [
@@ -38,10 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
                 'text' => $enroll ? 'Student added successfully.' : 'Student added but enrollment failed.'
             ];
         } else {
-            $_SESSION['msg'] = [
-                'type' => 'error',
-                'text' => 'Failed to add student.'
-            ];
+            $_SESSION['msg'] = ['type' => 'error', 'text' => 'Failed to add student.'];
         }
 
         header("Location: ../views/manage_students.php?page=AddStudent");

@@ -1,40 +1,45 @@
 <?php include 'inc/header.php' ?>
-<!-------------------------------------------------------------------------------------------------->
- 
+
+<?php
+  $toast = null;
+  if (isset($_SESSION['msg'])) {
+      $toast = $_SESSION['msg'];
+      unset($_SESSION['msg']);
+  }
+?>
+
 <div class="wrapper">
-  <!-- Sidebar -->
-    <?php include 'inc/sidebar.php'; ?>
-  <!-- End Sidebar -->
- 
+  <?php include 'inc/sidebar.php'; ?>
+
   <div class="main-panel">
     <div class="main-header">
- 
-      <!-- LOGO -->
-        <?php include 'inc/logo.php' ?>
-      <!-- End LOGO -->
- 
-      <!-- Navbar Header -->
-        <?php include 'inc/navbar.php' ?>
-      <!-- End Navbar -->
- 
+      <?php include 'inc/logo.php' ?>
+      <?php include 'inc/navbar.php' ?>
     </div>
- 
-    <!---------------------------------Content------------------------------------->
- 
+
     <div class="container">
       <div class="page-inner p-5">
- 
-        <!----------------------------Edit Here------------------------------------>
- 
+
+        <!-- Toast -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+          <div id="liveToast" class="toast align-items-center border-0 text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">
+                <?= htmlspecialchars($toast['text'] ?? '') ?>
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-8 <?= (isset($_GET['pagess']) && !empty($_GET['pagess'])) ? 'd-none' : '' ?>">
             <div class="card p-5">
               <div class="card-header">
                 <?php
-                  if(isset($_GET['program']) && isset($_GET['yr'])):
+                  if (isset($_GET['program']) && isset($_GET['yr'])):
                   include '../model/students.php';
-                  ?>
- 
+                ?>
                   <table id="basic-datatables" class="display table table-striped table-hover">
                     <thead>
                       <tr>
@@ -47,10 +52,9 @@
                       <?php
                         $pr = $_GET['program'];
                         $yr = $_GET['yr'];
-                        // Fixed: use the correct function name getStudentsByYear
                         $students = getStudentsByYear($pr, $yr);
-                        if(!empty($students)):
-                          foreach($students as $stud):
+                        if (!empty($students)):
+                          foreach ($students as $stud):
                       ?>
                         <tr>
                           <td><?= strtoupper($stud['section_name']) ?></td>
@@ -60,7 +64,6 @@
                             </a>
                           </td>
                           <td>
-                            <!-- Fixed: passing all 11 args including year, prog, sec, student_type -->
                             <button class="btn btn-sm btn-outline-primary" onclick="openEdit(
                               '<?= $stud['student_id'] ?>',
                               '<?= addslashes($stud['last_name']) ?>',
@@ -77,7 +80,6 @@
                             )">
                               <i class="fa fa-edit"></i>
                             </button>
-                            <!-- Fixed: passing program and yr for redirect after delete -->
                             <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete(<?= $stud['student_id'] ?>, '<?= $pr ?>', '<?= $yr ?>')">
                               <i class="fa fa-trash"></i>
                             </button>
@@ -86,91 +88,91 @@
                       <?php endforeach; endif; ?>
                     </tbody>
                   </table>
- 
                 <?php endif; ?>
               </div>
             </div>
           </div>
- 
-          <!-- Fixed: isset() misuse corrected -->
+
           <div class="<?= (isset($_GET['pagess']) && $_GET['pagess'] == 'addProgram') ? 'col-md-8' : 'col-md-4' ?>">
             <div class="card p-5">
-                <?php
-                  if(!empty($_GET['student'])):
-                    $id = $_GET['student'];
-                    $stud = getStudentById($id);  // Fixed: was getStudent(), correct name is getStudentById()
-                  ?>
- 
-                    <div class="row justify-content-center">
-                      <h4 class="text-center">Mini-Medical Record</h4>
-                      <hr>
-                      <h6>Student Information</h6>
-                      <p>
-                          <strong style="font-size: 13px;">Student No:</strong> <u><?= $stud['student_number'] ?></u> <br>
-                          <strong style="font-size: 13px;">Name:</strong> <u><?= ucwords($stud['last_name'] . ", " . $stud['first_name'] . " " . $stud['middle_name']) ?></u> <br>
-                          <strong style="font-size: 13px;">Birthday:</strong> <u><?= date("F d, Y ", strtotime($stud['birth_date'])) ?></u> <br>
-                          <strong style="font-size: 13px;">Sex:</strong> <u><?= strtoupper($stud['sex']) ?></u> <br>
-                          <strong style="font-size: 13px;">Contact #:</strong> <u><?= $stud['contact_number'] ?></u> <br>
-                          <strong style="font-size: 13px;">Email:</strong> <u><?= $stud['stud_email'] ?></u> <br>
-                      </p>
-                      <hr>
-                      <h6>Recent Visits</h6>
-                      <?php
-                        $visit = getRecentVisits($id); // Fixed: was getStudentVisits(), correct name is getRecentVisits()
-                        if($visit):
-                          foreach($visit as $vs): ?>
-                        <small class="px-5">
-                            <?= ucwords($vs['diagnosis']) ?> <br>
-                            <?= date("F d, Y - g:i A", strtotime($vs['created_at'])) ?>
-                        </small>
-                      <?php endforeach; else: echo "<small>No Data Found.</small>";
-                            endif; ?>
-                    </div>
- 
-                <!-- Fixed: isset() misuse corrected -->
-                <?php elseif(isset($_GET['pagess']) && $_GET['pagess'] == "addProgram"): ?>
-                  <form action="../pages/program.php" method="POST">
-                    <div class="card-header">
-                      <div class="card-title">ADD PROGRAM</div>
-                    </div>
-                    <div class="card-body">
-                      <div class="form-group">
-                        <div class="input-group mb-3">
-                          <span class="input-group-text">Program Name: </span>
-                          <input type="text" name="prog_name" class="form-control" placeholder="e.g. Bachelor of Science in Information Technology" required />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group mb-3">
-                          <span class="input-group-text">Program Code: </span>
-                          <input type="text" name="code" class="form-control" placeholder="e.g. BSIT" required />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-footer p-3">
-                      <input type="submit" name="addProgram" class="btn btn-success float-end mb-3">
-                    </div>
-                  </form>
-                  <p class="text-center" style="font-family: 'Roboto', sans-serif; font-size: 12px">Create a new program to organize student records effectively.</p>
-                  <p class="text-center" style="font-family: 'Roboto', sans-serif; font-size: 12px">"Add program details to continue managing academic records."</p>
-                <?php else: ?>
-                  <p class="text-center mt-3" style="font-family: 'Roboto', sans-serif;">
-                    "Medicine is not only about treating illness but also about caring 
-                    for people with compassion, accuracy, and responsibility. Every 
-                    medical record represents a person's health journey and serves as 
-                    an important guide in providing proper care and treatment. 
-                    Maintaining organized and reliable health information helps 
-                    healthcare professionals make better decisions, improve patient 
-                    safety, and ensure quality healthcare for everyone."
+              <?php
+                if (!empty($_GET['student'])):
+                  $id = $_GET['student'];
+                  $stud = getStudentById($id);
+              ?>
+                <div class="row justify-content-center">
+                  <h4 class="text-center">Mini-Medical Record</h4>
+                  <hr>
+                  <h6>Student Information</h6>
+                  <p>
+                    <strong style="font-size:13px;">Student No:</strong> <u><?= $stud['student_number'] ?></u><br>
+                    <strong style="font-size:13px;">Name:</strong> <u><?= ucwords($stud['last_name'] . ", " . $stud['first_name'] . " " . $stud['middle_name']) ?></u><br>
+                    <strong style="font-size:13px;">Birthday:</strong> <u><?= date("F d, Y", strtotime($stud['birth_date'])) ?></u><br>
+                    <strong style="font-size:13px;">Sex:</strong> <u><?= strtoupper($stud['sex']) ?></u><br>
+                    <strong style="font-size:13px;">Contact #:</strong> <u><?= $stud['contact_number'] ?></u><br>
+                    <strong style="font-size:13px;">Email:</strong> <u><?= $stud['stud_email'] ?></u><br>
+                    <strong style="font-size:13px;">Year Level:</strong> <u><?= strtoupper($stud['year_level_name']) ?> YEAR</u><br>
+                    <strong style="font-size:13px;">Program:</strong> <u><?= strtoupper($stud['program_code']) ?></u><br>
+                    <strong style="font-size:13px;">Section:</strong> <u><?= strtoupper($stud['section_name']) ?></u><br>
+                    <strong style="font-size:13px;">Student Type:</strong> <u><?= ucwords($stud['status']) ?></u><br>
                   </p>
-                  <p class="text-end" style="font-family: 'Roboto', sans-serif;">— William Osler</p>
-                <?php endif; ?>
+                  <hr>
+                  <h6>Recent Visits</h6>
+                  <?php
+                    $visit = getRecentVisits($id);
+                    if ($visit):
+                      foreach ($visit as $vs): ?>
+                    <small class="px-5">
+                      <?= ucwords($vs['diagnosis']) ?><br>
+                      <?= date("F d, Y - g:i A", strtotime($vs['created_at'])) ?>
+                    </small>
+                  <?php endforeach; else: ?>
+                    <small>No Data Found.</small>
+                  <?php endif; ?>
+                </div>
+
+              <?php elseif (isset($_GET['pagess']) && $_GET['pagess'] == "addProgram"): ?>
+                <form action="../pages/program.php" method="POST">
+                  <div class="card-header">
+                    <div class="card-title">ADD PROGRAM</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">Program Name: </span>
+                        <input type="text" name="prog_name" class="form-control" placeholder="e.g. Bachelor of Science in Information Technology" required />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">Program Code: </span>
+                        <input type="text" name="code" class="form-control" placeholder="e.g. BSIT" required />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer p-3">
+                    <input type="submit" name="addProgram" class="btn btn-success float-end mb-3">
+                  </div>
+                </form>
+                <p class="text-center" style="font-size:12px;">Create a new program to organize student records effectively.</p>
+                <p class="text-center" style="font-size:12px;">"Add program details to continue managing academic records."</p>
+
+              <?php else: ?>
+                <p class="text-center mt-3">
+                  "Medicine is not only about treating illness but also about caring
+                  for people with compassion, accuracy, and responsibility. Every
+                  medical record represents a person's health journey and serves as
+                  an important guide in providing proper care and treatment.
+                  Maintaining organized and reliable health information helps
+                  healthcare professionals make better decisions, improve patient
+                  safety, and ensure quality healthcare for everyone."
+                </p>
+                <p class="text-end">— William Osler</p>
+              <?php endif; ?>
             </div>
           </div>
         </div>
- 
-        <!--------------------------End Edit Here---------------------------------->
- 
+
         <!-- Edit Modal -->
         <div class="modal fade" id="editModal" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
@@ -187,14 +189,14 @@
                   <input type="hidden" name="student_id" id="edit_id">
                   <input type="hidden" name="program" value="<?= $_GET['program'] ?? '' ?>">
                   <input type="hidden" name="yr" value="<?= $_GET['yr'] ?? '' ?>">
- 
+
                   <?php
                     include_once '../model/fetch.php';
                     $programs = getPrograms();
                     $years    = getYear();
                     $sections = getsection();
                   ?>
- 
+
                   <div class="form-group col-md-6">
                     <label>Last Name</label>
                     <input type="text" name="lname" id="edit_lname" class="form-control" required>
@@ -226,11 +228,10 @@
                     <label>Email</label>
                     <input type="email" name="email" id="edit_email" class="form-control" required>
                   </div>
- 
                   <div class="form-group col-md-3">
                     <label>Year Level</label>
                     <select name="year" id="edit_year" class="form-control">
-                      <?php foreach($years as $yr): ?>
+                      <?php foreach ($years as $yr): ?>
                         <option value="<?= $yr['year_level_id'] ?>"><?= strtoupper($yr['year_level_name']) ?> YEAR</option>
                       <?php endforeach; ?>
                     </select>
@@ -238,7 +239,7 @@
                   <div class="form-group col-md-3">
                     <label>Program</label>
                     <select name="prog" id="edit_prog" class="form-control">
-                      <?php foreach($programs as $pr): ?>
+                      <?php foreach ($programs as $pr): ?>
                         <option value="<?= $pr['program_id'] ?>"><?= strtoupper($pr['program_code']) ?></option>
                       <?php endforeach; ?>
                     </select>
@@ -246,13 +247,11 @@
                   <div class="form-group col-md-3">
                     <label>Section</label>
                     <select name="sec" id="edit_sec" class="form-control">
-                      <?php foreach($sections as $sec): ?>
+                      <?php foreach ($sections as $sec): ?>
                         <option value="<?= $sec['section_id'] ?>"><?= strtoupper($sec['section_name']) ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
- 
-                  <!-- Added: Regular / Irregular dropdown -->
                   <div class="form-group col-md-3">
                     <label>Student Type</label>
                     <select name="student_type" id="edit_student_type" class="form-control">
@@ -260,7 +259,6 @@
                       <option value="Irregular">IRREGULAR</option>
                     </select>
                   </div>
- 
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4">
                   <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -270,7 +268,7 @@
             </div>
           </div>
         </div>
- 
+
         <!-- Delete Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
@@ -297,18 +295,13 @@
             </div>
           </div>
         </div>
- 
+
       </div>
     </div>
- 
-    <!---------------------------------End Content------------------------------------->
- 
   </div>
- 
-<!-------------------------------------------------------------------------------------------------->
- 
+</div>
+
 <script>
-// Fixed: added student_type as 12th argument
 function openEdit(id, lname, fname, mname, sex, bday, cont, email, year, prog, sec, student_type) {
   document.getElementById('edit_id').value           = id;
   document.getElementById('edit_lname').value        = lname;
@@ -324,13 +317,22 @@ function openEdit(id, lname, fname, mname, sex, bday, cont, email, year, prog, s
   document.getElementById('edit_student_type').value = student_type;
   new bootstrap.Modal(document.getElementById('editModal')).show();
 }
- 
-// Fixed: now passes program and yr so redirect goes back to correct list
+
 function confirmDelete(id, program, yr) {
   document.getElementById('confirmDeleteBtn').href =
     '../pages/student.php?deleteStudent=' + id + '&&program=' + program + '&&yr=' + yr;
   new bootstrap.Modal(document.getElementById('deleteModal')).show();
 }
 </script>
- 
+
+<?php if (!empty($toast)): ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toastEl = document.getElementById('liveToast');
+    toastEl.classList.add('<?= $toast['type'] === 'success' ? 'text-bg-success' : 'text-bg-danger' ?>');
+    new bootstrap.Toast(toastEl, { delay: 3000 }).show();
+  });
+</script>
+<?php endif; ?>
+
 <?php include 'inc/footer.php' ?>

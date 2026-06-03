@@ -3,6 +3,11 @@
     if(isset($_SESSION['name'])){
         header("Location: dashboard.php");
     }
+    $error = '';
+if (isset($_SESSION['login_error'])) {
+    $error = $_SESSION['login_error'];
+    unset($_SESSION['login_error']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -216,6 +221,16 @@
         padding: 10px;
       }
     }
+    .error-msg {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #dc2626;
+  font-size: 13px;
+  text-align: center;
+  padding: 9px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
   </style>
 </head>
 <body>
@@ -238,6 +253,9 @@
           <div class="input-group">
             <input type="password" name="password" placeholder="Password" required />
           </div>
+           <?php if ($error): ?>
+  <div class="error-msg"><?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
           <input type="submit" name="login" value="Login" id="button" />
         </form>
         <div class="footer-text">© 2026 School Clinic System</div>

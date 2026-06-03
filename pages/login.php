@@ -4,7 +4,6 @@
     session_start();
     
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
         if (isset($_POST["login"])) {
             $username = $_POST['user'];
             $password = $_POST['password'];
@@ -14,8 +13,10 @@
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['id'] = $user['staff_id'];
                 header("Location: ../views/dashboard.php");
+            } else {
+                $_SESSION['login_error'] = "Invalid username or password.";
+                header("Location: ../views/login.php");
             }
         }
-
     }
 ?>

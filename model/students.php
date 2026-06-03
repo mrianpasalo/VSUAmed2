@@ -129,15 +129,23 @@ function addStdnt($conn, $post){
     }
  
     function getStudentById($id){
-        global $conn;
-        $sql = "SELECT *
-                FROM students
-                WHERE student_id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
-    }
+    global $conn;
+    $sql = "SELECT s.*, 
+                   y.year_level_name, 
+                   p.program_code, 
+                   sec.section_name,
+                   se.status
+            FROM students AS s
+            INNER JOIN student_enrollment AS se ON se.student_id = s.student_id
+            INNER JOIN program AS p ON p.program_id = se.program_id
+            INNER JOIN year_level AS y ON y.year_level_id = se.year_level_id
+            INNER JOIN section AS sec ON sec.section_id = se.section_id
+            WHERE s.student_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
     function deleteStudent($id) {
     global $conn;
 
